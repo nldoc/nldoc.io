@@ -5,8 +5,7 @@ title: Projects
 
 I am currently working at the Department of [Ecosystem Modelling](http://www.uni-goettingen.de/de/102170.html) at the [University of Goettingen](https://www.uni-goettingen.de/). My work is embedded within the [EFForTS](https://www.uni-goettingen.de/de/310995.html) project.
 
-We have developed several tools, that are freely available:
-
+We have developed and published several freely available open-source tools:
 
 ## EFForTS-ABM 
 <img src="/images/EFForTS-ABM.png" align="right" width="150" /> 
