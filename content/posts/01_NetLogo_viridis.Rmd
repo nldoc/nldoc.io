@@ -20,7 +20,7 @@ Welcome everybody to my fresh webpage. Every now and then I'll post short little
 In this first post, I will show you how you can use R colorramps, such as the wonderful viridis colorramp, directly in your NetLogo models.
 
 
-## Colormaps
+## Colorramps
 
 The R package [Viridis](https://cran.r-project.org/web/packages/viridis/index.html) provides color palettes that are optimized to represent data. The colorramps are easier to read by those with colorblindness and can be easily distinguished when printed in grey scale.
 
