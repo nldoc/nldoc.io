@@ -75,9 +75,6 @@ Second, it vill take the variable value of the current agent. The remaining two 
 
 ```{}
 to-report scale-colormap [palette var minvar maxvar]
-  ;; Rescale the variable to 0..300
-  ;;The transformation works as follows:
-  ; NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
   report item floor(((var - minvar) * (length(run-result (word "palette-" palette)) - 1)) / (maxvar - minvar)) run-result (word "palette-" palette)
 end
 ```
@@ -87,10 +84,6 @@ This function also checks if the requested index value is available within the s
 
 ```{}
 to-report colormap [palette palette_index]
-  ;; Scale a variable to the length of the palette:
-  let pal_viridis palette-viridis
-
-  ;; Check vir_i:
   ifelse (palette_index >= length(run-result (word "palette-" palette)))
   [
     print (word "viridis color index invalid. Index maximum = " (length(run-result (word "palette-" palette)) - 1))

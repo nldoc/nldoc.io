@@ -243,18 +243,11 @@ end</code></pre>
 This function works similar to the <code>scale-color</code> primitive of NetLogo. It will take 4 arguments. First, a string to select the palette that you want to use for coloring. This allows you to define multiple color palettes with different reporter functions (see examples in NetLogo example model at the buttom of this post).
 Second, it vill take the variable value of the current agent. The remaining two values define the variable range. The function will then scale the variable range onto the range of the selected color palette and selects the item that corresponds to the variable value of the actual agent. By default, your <code>minvar</code> value will be smaller then the <code>maxvar</code> value. High values will then receive colors from the end of the list, whereas low values will receive colors from the beginning of the list. Similar to the <code>scale-color</code> primitive, you can revert the direction of the colorramp by switching the <code>minvar</code> and <code>maxvar</code> values (minvar &gt; maxvar).</p>
 <pre><code>to-report scale-colormap [palette var minvar maxvar]
-  ;; Rescale the variable to 0..300
-  ;;The transformation works as follows:
-  ; NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
   report item floor(((var - minvar) * (length(run-result (word &quot;palette-&quot; palette)) - 1)) / (maxvar - minvar)) run-result (word &quot;palette-&quot; palette)
 end</code></pre>
 <p>Third, we may also want to define a function that allows us to pick a specific color from a palette.
 This function also checks if the requested index value is available within the selected palette.</p>
 <pre><code>to-report colormap [palette palette_index]
-  ;; Scale a variable to the length of the palette:
-  let pal_viridis palette-viridis
-
-  ;; Check vir_i:
   ifelse (palette_index &gt;= length(run-result (word &quot;palette-&quot; palette)))
   [
     print (word &quot;viridis color index invalid. Index maximum = &quot; (length(run-result (word &quot;palette-&quot; palette)) - 1))
