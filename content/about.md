@@ -5,7 +5,7 @@ title: About
 
 ## Bio
 
-I did my Master in Forerstry sciences and forest ecology with a study focus on Ecosystem Modelling.
+I did my Master in Forestry Sciences and Forest Ecology with a study focus on Ecosystem Modelling.
 My main research workflow includes agent-based modelling, mainly with NetLogo, data analysis, mainly with R, as well as data visualization and communication. I am also experienced in QGIS, HTML and Java.
 
 ## Publications
