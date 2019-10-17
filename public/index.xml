@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Viridis</title>
+      <title>Advanced colormaps in NetLogo</title>
       <link>/posts/01_netlogo_viridis/</link>
       <pubDate>Thu, 17 Oct 2019 00:00:00 +0000</pubDate>
       
@@ -26,8 +26,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description> Bio Agent-based modelling Data analysis Data visualization and communication
-My main programming languages are R and NetLogo, but I am also experienced in QGIS, HTML and Java.
+      <description> Bio I did my Master in Forerstry sciences and forest ecology with a study focus on Ecosystem Modelling. My main research workflow includes agent-based modelling, mainly with NetLogo, data analysis, mainly with R, as well as data visualization and communication. I am also experienced in QGIS, HTML and Java.
 Publications  </description>
     </item>
     
