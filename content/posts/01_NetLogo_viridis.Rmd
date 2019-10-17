@@ -101,8 +101,8 @@ These functions can now be stored as a separated *.nls file. This file can then 
 ## Complete NetLogo example including four palettes
 
 You can download a NetLogo example model here:
-[colormap.nlogo](data/colormap/colormap.nlogo);
-[colormap.nls](data/colormap/colormap.nls)
+[colormap.nlogo](data/colormap.nlogo);
+[colormap.nls](data/colormap.nls)
 
 The colormap.nls file includes the described functions above and can be included to any NetLogo model.
 The colormap.nlogo model shows some examples of these functions in action.
