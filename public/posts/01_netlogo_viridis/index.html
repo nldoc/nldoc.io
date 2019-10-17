@@ -241,7 +241,7 @@ Thus, when this function is called it will report the complete list of colors fr
 end</code></pre>
 <p>Second, we need a function that scales our color palette to the variable values of agents.
 This function works similar to the <code>scale-color</code> primitive of NetLogo. It will take 4 arguments. First, a string to select the palette that you want to use for coloring. This allows you to define multiple color palettes with different reporter functions (see examples in NetLogo example model at the buttom of this post).
-Second, it vill take the variable value of the current agent. The remaining two values define the variable range. The function will then scale the variable range onto the range of the selected color palette and selects the item that corresponds to the variable value of the actual agent.</p>
+Second, it vill take the variable value of the current agent. The remaining two values define the variable range. The function will then scale the variable range onto the range of the selected color palette and selects the item that corresponds to the variable value of the actual agent. By default, your <code>minvar</code> value will be smaller then the <code>maxvar</code> value. High values will then receive colors from the end of the list, whereas low values will receive colors from the beginning of the list. Similar to the <code>scale-color</code> primitive, you can revert the direction of the colorramp by switching the <code>minvar</code> and <code>maxvar</code> values (minvar &gt; maxvar).</p>
 <pre><code>to-report scale-colormap [palette var minvar maxvar]
   ;; Rescale the variable to 0..300
   ;;The transformation works as follows:
@@ -264,7 +264,7 @@ This function also checks if the requested index value is available within the s
     report item palette_index run-result (word &quot;palette-&quot; palette)
   ]
 end</code></pre>
-<p>These functions can now be stored as a separated *.nls file. This file can then be included in any NetLogo model via the <code>__includes[]</code> primitive.</p>
+<p>These functions can now be stored as a separate *.nls file. This file can then be included in any NetLogo model via the <code>__includes[]</code> primitive.</p>
 </div>
 <div id="complete-netlogo-example-including-four-palettes" class="section level2">
 <h2>Complete NetLogo example including four palettes</h2>
@@ -272,9 +272,9 @@ end</code></pre>
 <a href="data/colormap.nlogo">colormap.nlogo</a>;
 <a href="data/colormap.nls">colormap.nls</a></p>
 <p>The colormap.nls file includes the described functions above and can be included to any NetLogo model.
-The colormap.nlogo model shows some examples of these functions in action. Please download both and put the in the same folder and open the colormap.nlogo file to run the examples.
+The colormap.nlogo model shows some examples of these functions in action. Please download both files, put them in the same folder and open the colormap.nlogo file to run the examples.
 Of course you can edit the colormap.nls file and add more palette reporters of any palettes you wish to use.</p>
-<p>Stay tuned for more NetLogo and R related content ;)</p>
+<p>Have fun coloring your agents, prettier than ever before and stay tuned for more NetLogo and R related content ;)</p>
 <p><img src="/images/colormap.png" align="center" width="550" /></p>
 </div>
 

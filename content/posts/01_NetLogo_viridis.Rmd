@@ -71,7 +71,7 @@ end
 
 Second, we need a function that scales our color palette to the variable values of agents.
 This function works similar to the `scale-color` primitive of NetLogo. It will take 4 arguments. First, a string to select the palette that you want to use for coloring. This allows you to define multiple color palettes with different reporter functions (see examples in NetLogo example model at the buttom of this post).
-Second, it vill take the variable value of the current agent. The remaining two values define the variable range. The function will then scale the variable range onto the range of the selected color palette and selects the item that corresponds to the variable value of the actual agent.
+Second, it vill take the variable value of the current agent. The remaining two values define the variable range. The function will then scale the variable range onto the range of the selected color palette and selects the item that corresponds to the variable value of the actual agent. By default, your `minvar` value will be smaller then the `maxvar` value. High values will then receive colors from the end of the list, whereas low values will receive colors from the beginning of the list. Similar to the `scale-color` primitive, you can revert the direction of the colorramp by switching the `minvar` and `maxvar` values (minvar > maxvar). 
 
 ```{}
 to-report scale-colormap [palette var minvar maxvar]
@@ -102,7 +102,7 @@ to-report colormap [palette palette_index]
 end
 ```
 
-These functions can now be stored as a separated *.nls file. This file can then be included in any NetLogo model via the `__includes[]` primitive. 
+These functions can now be stored as a separate *.nls file. This file can then be included in any NetLogo model via the `__includes[]` primitive. 
 
 ## Complete NetLogo example including four palettes
 
@@ -111,9 +111,9 @@ You can download a NetLogo example model here:
 [colormap.nls](data/colormap.nls)
 
 The colormap.nls file includes the described functions above and can be included to any NetLogo model.
-The colormap.nlogo model shows some examples of these functions in action. Please download both and put the in the same folder and open the colormap.nlogo file to run the examples.
+The colormap.nlogo model shows some examples of these functions in action. Please download both files, put them in the same folder and open the colormap.nlogo file to run the examples.
 Of course you can edit the colormap.nls file and add more palette reporters of any palettes you wish to use.
 
-Stay tuned for more NetLogo and R related content ;)
+Have fun coloring your agents, prettier than ever before and stay tuned for more NetLogo and R related content ;)
 
 <img src="/images/colormap.png" align="center" width="550" /> 
