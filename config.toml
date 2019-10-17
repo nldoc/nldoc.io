@@ -33,7 +33,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     hideCopyright = false
 
     # Git Commit in Footer, uncomment the line below to enable it.
-    commit = "https://github.com/luizdepra/hugo-coder/tree/"
+    #commit = "https://github.com/luizdepra/hugo-coder/tree/"
 
     rtl = false
 

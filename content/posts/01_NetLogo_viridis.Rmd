@@ -15,9 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Welcome
 
-Welcome everybody to my fresh webpage. Every now and then I'll post short little programming applications that I think might be helpful for people out there. Most if this will be related to NetLogo and R and the combination of both tools.
+Welcome everybody to my fresh webpage. Every now and then I'll post short little code exercises that I think might be helpful for people out there. Most of this will be related to NetLogo and R and the combination of both tools.
 
-In this first post, I will show you how you can use R colorramps, such as the wonderful viridis colorramp, directly in your NetLogo models.
+In this first post, I will demonstrate how you can use R colorramps, such as the wonderful viridis colorramp, directly in your NetLogo models.
 
 
 ## Colorramps
@@ -36,15 +36,15 @@ Afterwards, we write the palette values to a *.txt file in a "NetLogo-friendly" 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE, results = 'hide'}
 library(viridis)
 library(colormap)
-# Define length of viridis palette -> n > 300 doubles some colors
+# Define length of palette. n > 300 doubles some colors
 n <- 300
-## Create a viridis palette rgb dataframe
-virpal <- colormap(colormap = colormaps$inferno, format = 'rgb', nshades = n)
-## Remove alpha channel
+# Create a palette rgb dataframe
+virpal <- colormap(colormap = colormaps$viridis, format = 'rgb', nshades = n)
+# Remove alpha channel
 virpal <- virpal[,-4]
 
 # Write as file
-sink("viridis.txt")
+sink("palette.txt")
 cat("[")
 for (i in 1:nrow(virpal))
 {
@@ -60,7 +60,7 @@ The colormap package supports many different colorramps, including additional vi
 
 ## Implementing the colorramp in NetLogo
 
-First, we need a function that reports the complete colorramp of our palette. We can use a NetLogo reporter function to achieve this. I created a new reporter function and copy-pasted the values from the written *.txt file into this function.
+First, we need a function that reports the complete colorramp of our palette. We can use a NetLogo reporter function to achieve this. I created a new reporter function and copy-pasted the values from the written `palette.txt` file into this function.
 Thus, when this function is called it will report the complete list of colors from our exported palette.
 
 ```{}
@@ -103,8 +103,8 @@ You can download a NetLogo example model here:
 [colormap.nlogo](data/colormap.nlogo);
 [colormap.nls](data/colormap.nls)
 
-The colormap.nls file includes the described functions above and can be included to any NetLogo model.
-The colormap.nlogo model shows some examples of these functions in action. Please download both files, put them in the same folder and open the colormap.nlogo file to run the examples.
+The colormap.nls file contains the described functions above and can be included to any NetLogo model.
+The colormap.nlogo model shows some examples of these functions in action. Please download both files, put them in the same folder and open the colormap.nlogo file to run the examples (NetLogo 6.1.0, but should work with older versions as well).
 Of course you can edit the colormap.nls file and add more palette reporters of any palettes you wish to use.
 
 Have fun coloring your agents, prettier than ever before and stay tuned for more NetLogo and R related content ;)
