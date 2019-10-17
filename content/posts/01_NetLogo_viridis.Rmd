@@ -1,5 +1,5 @@
 ---
-title: "Viridis"
+title: "Advanced colormaps in NetLogo"
 author: "Jan Salecker"
 date: 2019-10-17
 categories: ["R"]
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-## Viridis
+## Colormaps
 
 The R package [Viridis](https://cran.r-project.org/web/packages/viridis/index.html) provides color palettes that are optimized to represent data. The color scales are easier to read by those with colorblindness and can be easily distinguished when printed in grey scale.
 
