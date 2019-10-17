@@ -1,0 +1,150 @@
+---
+title: "Viridis"
+author: "Jan Salecker"
+date: 2019-10-17
+categories: ["R"]
+tags: ["NetLogo", "agent-based model", "viridis", "color-scale"]
+output:
+  blogdown::html_page:
+    highlight: tango
+---
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<div id="viridis" class="section level2">
+<h2>Viridis</h2>
+<p>The R package <a href="https://cran.r-project.org/web/packages/viridis/index.html">Viridis</a> provides color scales that are optimized to represent data. The color scales are easier to read by those with colorblindness and can be easily distinguished when printed in grey scale.</p>
+<p>I use viridis color scales for many data visualization purposes every day. However, I also work quite a lot with NetLogo models and was always missing the possibilty to use nice color-scales for coloring the cells or turtles according to certain properties of these agents.</p>
+<p>So I decided to implement a neat little function in NetLogo that can be copied to any of your NetLogo models. It will allow you to use the viridis color-scales directly within NetLogo.</p>
+</div>
+<div id="getting-the-color-values-from-the-viridis-palettes" class="section level2">
+<h2>Getting the color values from the viridis palettes</h2>
+<p>In order to implement the viridis color scales into NetLogo, we first need to extract the RGB color values from the viridis palette. In the following code snippet, we use the <a href="https://cran.r-project.org/web/packages/colormap/index.html">colormap</a> package to create a palette with RGB values.
+Afterwards, we write the palette values to a *.txt file in a “NetLogo-friendly” format.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(viridis)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(colormap)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co"># Define length of viridis palette -&gt; n &gt; 300 doubles some colors</span></a>
+<a class="sourceLine" id="cb1-4" title="4">n &lt;-<span class="st"> </span><span class="dv">300</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co">## Create a viridis palette rgb dataframe</span></a>
+<a class="sourceLine" id="cb1-6" title="6">virpal &lt;-<span class="st"> </span><span class="kw">colormap</span>(<span class="dt">colormap =</span> colormaps<span class="op">$</span>inferno, <span class="dt">format =</span> <span class="st">&#39;rgb&#39;</span>, <span class="dt">nshades =</span> n)</a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">## Remove alpha channel</span></a>
+<a class="sourceLine" id="cb1-8" title="8">virpal &lt;-<span class="st"> </span>virpal[,<span class="op">-</span><span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb1-9" title="9"></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co"># Write as file</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="kw">sink</span>(<span class="st">&quot;viridis.txt&quot;</span>)</a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="kw">cat</span>(<span class="st">&quot;[&quot;</span>)</a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(virpal))</a>
+<a class="sourceLine" id="cb1-14" title="14">{</a>
+<a class="sourceLine" id="cb1-15" title="15">  <span class="kw">cat</span>(<span class="st">&quot;[&quot;</span>)</a>
+<a class="sourceLine" id="cb1-16" title="16">  <span class="kw">cat</span>(<span class="kw">paste0</span>(virpal[i,]))</a>
+<a class="sourceLine" id="cb1-17" title="17">  <span class="kw">cat</span>(<span class="st">&quot;]&quot;</span>)</a>
+<a class="sourceLine" id="cb1-18" title="18">}</a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="kw">cat</span>(<span class="st">&quot;]&quot;</span>)</a>
+<a class="sourceLine" id="cb1-20" title="20"><span class="kw">sink</span>()</a></code></pre></div>
+<p>The color map package supports many different color-scales, including additional viridis scales, such as the Magma or Plasma scale. A complete list can be found <a href="https://www.npmjs.com/package/colormap#options">here</a>. In order to create output files for these color scales, you only need to adjust the <code>colormaps$viridis</code> parameter withint the <code>colormap</code> function call. For example, <code>colormap(colormap = colormaps$magma, format = 'rgb', nshades = n)</code> will report n values of the Magma palette.</p>
+</div>
+<div id="implementing-the-color-scale-in-netlogo" class="section level2">
+<h2>Implementing the color-scale in NetLogo</h2>
+<p>First, we need a function that reports the complete color-scale of our palette. We can use a NetLogo reporter function to achieve this. I created a new reporter function and copy-pasted the values from the written *.txt file into this function.
+Thus, when this function is called it will report the complete list of colors from our exported palette.</p>
+<pre><code>to-report palette-viridis
+  report [[68 1 84][68 2 85][68 3 86][68 4 87][68 6 88][68 7 89][68 8 90][69 9 91][69 10 92][69 11 93][69 12 94][69 13 95][69 15 96][69 16 97][69 17 98][69 18 99][69 19 100][69 20 101][69 21 102][70 23 103][70 24 104][70 25 105][70 26 106][70 27 107][70 28 108][70 29 109][70 30 110][70 32 111][70 33 112][70 34 113][70 35 114][70 36 115][71 37 116][71 38 117][71 39 118][71 41 119][71 42 120][71 43 121][71 44 122][71 44 122][71 45 122][70 46 123][70 47 123][70 48 124][69 49 124][69 50 125][69 51 125][68 52 126][68 54 126][68 55 127][67 56 127][67 57 128][67 58 128][66 59 129][66 60 129][66 61 130][65 62 130][65 63 131][64 64 131][64 65 132][64 66 132][63 67 133][63 68 133][63 69 134][62 70 134][62 71 135][62 73 135][61 74 136][61 75 136][61 76 137][60 77 137][60 78 138][60 79 138][59 80 139][59 81 139][59 81 139][59 82 139][58 83 139][58 84 139][57 84 139][57 85 139][57 86 139][56 87 140][56 88 140][55 89 140][55 89 140][55 90 140][54 91 140][54 92 140][53 93 140][53 94 140][53 94 140][52 95 140][52 96 140][52 97 141][51 98 141][51 99 141][50 100 141][50 100 141][50 101 141][49 102 141][49 103 141][48 104 141][48 105 141][48 105 141][47 106 141][47 107 141][46 108 142][46 109 142][46 110 142][45 110 142][45 111 142][44 112 142][44 113 142][44 113 142][44 114 142][43 115 142][43 116 142][43 117 142][42 117 142][42 118 142][42 119 142][41 120 142][41 121 142][41 122 142][41 123 142][40 124 142][40 125 142][40 125 142][39 126 142][39 127 142][39 128 142][38 129 141][38 130 141][38 131 141][37 132 141][37 132 141][37 133 141][36 134 141][36 135 141][36 136 141][36 137 141][35 138 141][35 139 141][35 140 141][34 140 141][34 141 141][34 142 141][33 143 141][33 144 141][33 144 141][33 145 141][33 146 140][33 146 140][34 147 140][34 148 139][34 149 139][34 149 139][34 150 138][34 151 138][35 152 138][35 152 138][35 153 137][35 154 137][35 155 137][35 155 136][36 156 136][36 157 136][36 158 135][36 159 135][36 159 135][36 160 134][36 161 134][37 162 134][37 162 133][37 163 133][37 164 133][37 165 132][37 165 132][38 166 132][38 167 132][38 168 131][38 168 131][38 169 131][38 170 130][39 171 130][39 171 130][39 172 129][39 173 129][39 173 129][41 174 128][42 175 127][44 175 126][45 176 126][47 177 125][48 178 124][50 178 123][51 179 122][53 180 121][54 181 120][56 181 120][57 182 119][59 183 118][60 184 117][62 185 116][63 185 115][65 186 114][66 187 114][68 188 113][69 188 112][71 189 111][72 190 110][74 191 109][75 192 108][77 192 108][78 193 107][80 194 106][81 195 105][83 195 104][84 196 103][86 197 102][87 198 102][89 198 101][90 199 100][92 200 99][92 200 99][94 201 98][96 201 96][98 202 95][100 202 94][102 203 93][104 203 91][106 204 90][108 204 89][110 205 87][113 205 86][115 206 85][117 206 84][119 207 82][121 207 81][123 208 80][125 208 78][127 209 77][129 209 76][131 210 75][133 211 73][135 211 72][137 212 71][139 212 69][141 213 68][143 213 67][145 214 65][147 214 64][149 215 63][152 215 62][154 216 60][156 216 59][158 217 58][160 217 56][162 218 55][164 218 54][166 219 53][168 219 51][170 220 50][170 220 50][172 220 50][175 221 49][177 221 49][179 221 49][182 222 48][184 222 48][187 222 47][189 223 47][191 223 47][194 223 46][196 223 46][198 224 46][201 224 45][203 224 45][206 225 44][208 225 44][210 225 44][213 226 43][215 226 43][217 226 43][220 227 42][222 227 42][225 227 41][227 228 41][229 228 41][232 228 40][234 228 40][236 229 40][239 229 39][241 229 39][244 230 38][246 230 38][248 230 38][251 231 37][253 231 37]]
+end</code></pre>
+<p>Second, we need a function that scales our color palette to the variable values of agents.
+This function works similar to the <code>scale-color</code> primitive of NetLogo. It will take 4 arguments. First, a string to select the palette that you want to use for coloring. This allows you to define multiple color palettes with different reporter functions (see examples in NetLogo example model at the buttom of this post).
+Second, it vill take the variable value of the current agent. The remaining two values define the variable range. The function will then scale the variable range onto the range of the selected color palette and selects the item that corresponds to the variable value of the actual agent.</p>
+<pre><code>to-report scale-colormap [palette var minvar maxvar]
+  ;; Rescale the variable to 0..300
+  ;;The transformation works as follows:
+  ; NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+  report item floor(((var - minvar) * (length(run-result (word &quot;palette-&quot; palette)) - 1)) / (maxvar - minvar)) run-result (word &quot;palette-&quot; palette)
+end</code></pre>
+<p>Third, we may also want to define a function that allows us to pick a specific color from a palette.
+This function also checks if the requested value is available within the selected palette.</p>
+<pre><code>to-report colormap [palette vir_i]
+  ;; Scale a variable to the length of the palette:
+  let pal_viridis palette-viridis
+
+  ;; Check vir_i:
+  ifelse (vir_i &gt;= length(run-result (word &quot;palette-&quot; palette)))
+  [
+    print (word &quot;viridis color index invalid. Index maximum = &quot; (length(run-result (word &quot;palette-&quot; palette)) - 1))
+    report item 0 run-result (word &quot;palette-&quot; palette)
+  ]
+  [
+    report item vir_i run-result (word &quot;palette-&quot; palette)
+  ]
+end</code></pre>
+<p>These functions can now be stored as a separated *.nls file. This file can then be included in any NetLogo model via the <code>__includes[]</code> primitive.</p>
+</div>
+<div id="complete-netlogo-example-including-four-palettes" class="section level2">
+<h2>Complete NetLogo example including four palettes</h2>
+<p>You can download a NetLogo example model here:
+<a href="data/colormap/colormap.nlogo">colormap.nlogo</a>;
+<a href="data/colormap/colormap.nls">colormap.nls</a></p>
+<p>The colormap.nls file includes the described functions above and can be included to any NetLogo model.
+The colormap.nlogo model shows some examples of these functions in action.</p>
+<p><img src="/images/colormap.png" align="center" width="550" /></p>
+</div>
