@@ -195,7 +195,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2>Colormaps</h2>
 <p>The R package <a href="https://cran.r-project.org/web/packages/viridis/index.html">Viridis</a> provides color palettes that are optimized to represent data. The color scales are easier to read by those with colorblindness and can be easily distinguished when printed in grey scale.</p>
 <p>I use viridis color scales for many data visualization purposes every day. However, I also work quite a lot with NetLogo models and was always missing the possibilty to use nice color palettes for coloring the cells or turtles according to certain properties of these agents.</p>
-<p>So I decided to implement a neat little function in NetLogo that can be copied to any of your NetLogo models. It will allow you to use the viridis color palettes and many other directly within NetLogo.</p>
+<p>So I decided to implement a neat little function in NetLogo that can be copied to any of your NetLogo models. It will allow you to use the viridis color palettes and many other palettes directly within NetLogo.</p>
 </div>
 <div id="getting-the-color-values-from-the-viridis-palettes" class="section level2">
 <h2>Getting the color values from the viridis palettes</h2>
@@ -221,7 +221,7 @@ Afterwards, we write the palette values to a *.txt file in a “NetLogo-friendly
 <a class="sourceLine" id="cb1-18" title="18">}</a>
 <a class="sourceLine" id="cb1-19" title="19"><span class="kw">cat</span>(<span class="st">&quot;]&quot;</span>)</a>
 <a class="sourceLine" id="cb1-20" title="20"><span class="kw">sink</span>()</a></code></pre></div>
-<p>The color map package supports many different color-scales, including additional viridis scales, such as the Magma or Plasma scale. A complete list can be found <a href="https://www.npmjs.com/package/colormap#options">here</a>. In order to create output files for these color scales, you only need to adjust the <code>colormaps$viridis</code> parameter within the <code>colormap</code> function call. For example, <code>colormap(colormap = colormaps$magma, format = 'rgb', nshades = n)</code> will report <code>n</code> values of the Magma palette.</p>
+<p>The colormap package supports many different color-scales, including additional viridis scales, such as the Magma or Plasma scale. A complete list can be found <a href="https://www.npmjs.com/package/colormap#options">here</a>. In order to create output files for these color scales, you only need to adjust the <code>colormaps$viridis</code> parameter within the <code>colormap</code> function call. For example, <code>colormap(colormap = colormaps$magma, format = 'rgb', nshades = n)</code> will report <code>n</code> values of the Magma palette.</p>
 </div>
 <div id="implementing-the-color-scale-in-netlogo" class="section level2">
 <h2>Implementing the color-scale in NetLogo</h2>
@@ -241,18 +241,18 @@ Second, it vill take the variable value of the current agent. The remaining two 
 end</code></pre>
 <p>Third, we may also want to define a function that allows us to pick a specific color from a palette.
 This function also checks if the requested value is available within the selected palette.</p>
-<pre><code>to-report colormap [palette vir_i]
+<pre><code>to-report colormap [palette palette_index]
   ;; Scale a variable to the length of the palette:
   let pal_viridis palette-viridis
 
   ;; Check vir_i:
-  ifelse (vir_i &gt;= length(run-result (word &quot;palette-&quot; palette)))
+  ifelse (palette_index &gt;= length(run-result (word &quot;palette-&quot; palette)))
   [
     print (word &quot;viridis color index invalid. Index maximum = &quot; (length(run-result (word &quot;palette-&quot; palette)) - 1))
     report item 0 run-result (word &quot;palette-&quot; palette)
   ]
   [
-    report item vir_i run-result (word &quot;palette-&quot; palette)
+    report item palette_index run-result (word &quot;palette-&quot; palette)
   ]
 end</code></pre>
 <p>These functions can now be stored as a separated *.nls file. This file can then be included in any NetLogo model via the <code>__includes[]</code> primitive.</p>
@@ -263,8 +263,8 @@ end</code></pre>
 <a href="data/colormap.nlogo">colormap.nlogo</a>;
 <a href="data/colormap.nls">colormap.nls</a></p>
 <p>The colormap.nls file includes the described functions above and can be included to any NetLogo model.
-The colormap.nlogo model shows some examples of these functions in action.</p>
-<p><img src="/images/colormap.png" align="center" width="550" /></p>
+The colormap.nlogo model shows some examples of these functions in action.
+<img src="/images/colormap.png" align="center" width="550" /></p>
 </div>
 
       </div>

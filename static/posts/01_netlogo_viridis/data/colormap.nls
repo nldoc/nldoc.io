@@ -25,18 +25,18 @@ end
 
 ;; color-viridis
 ;; Reports a specific item from the viridis color scale
-to-report colormap [palette vir_i]
+to-report colormap [palette palette_index]
   ;; Scale a variable to the length of the palette:
   let pal_viridis palette-viridis
 
   ;; Check vir_i:
-  ifelse (vir_i >= length(run-result (word "palette-" palette)))
+  ifelse (palette_index >= length(run-result (word "palette-" palette)))
   [
     print (word "viridis color index invalid. Index maximum = " (length(run-result (word "palette-" palette)) - 1))
     report item 0 run-result (word "palette-" palette)
   ]
   [
-    report item vir_i run-result (word "palette-" palette)
+    report item palette_index run-result (word "palette-" palette)
   ]
 end
 

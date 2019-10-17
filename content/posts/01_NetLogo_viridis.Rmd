@@ -20,7 +20,7 @@ The R package [Viridis](https://cran.r-project.org/web/packages/viridis/index.ht
 
 I use viridis color scales for many data visualization purposes every day. However, I also work quite a lot with NetLogo models and was always missing the possibilty to use nice color palettes for coloring the cells or turtles according to certain properties of these agents.
 
-So I decided to implement a neat little function in NetLogo that can be copied to any of your NetLogo models. It will allow you to use the viridis color palettes and many other directly within NetLogo.
+So I decided to implement a neat little function in NetLogo that can be copied to any of your NetLogo models. It will allow you to use the viridis color palettes and many other palettes directly within NetLogo.
 
 ## Getting the color values from the viridis palettes
 
@@ -50,7 +50,7 @@ cat("]")
 sink()
 ``` 
 
-The color map package supports many different color-scales, including additional viridis scales, such as the Magma or Plasma scale. A complete list can be found [here](https://www.npmjs.com/package/colormap#options). In order to create output files for these color scales, you only need to adjust the `colormaps$viridis` parameter within the `colormap` function call. For example, `colormap(colormap = colormaps$magma, format = 'rgb', nshades = n)` will report `n` values of the Magma palette.
+The colormap package supports many different color-scales, including additional viridis scales, such as the Magma or Plasma scale. A complete list can be found [here](https://www.npmjs.com/package/colormap#options). In order to create output files for these color scales, you only need to adjust the `colormaps$viridis` parameter within the `colormap` function call. For example, `colormap(colormap = colormaps$magma, format = 'rgb', nshades = n)` will report `n` values of the Magma palette.
 
 ## Implementing the color-scale in NetLogo
 
@@ -80,18 +80,18 @@ Third, we may also want to define a function that allows us to pick a specific c
 This function also checks if the requested value is available within the selected palette.
 
 ```{}
-to-report colormap [palette vir_i]
+to-report colormap [palette palette_index]
   ;; Scale a variable to the length of the palette:
   let pal_viridis palette-viridis
 
   ;; Check vir_i:
-  ifelse (vir_i >= length(run-result (word "palette-" palette)))
+  ifelse (palette_index >= length(run-result (word "palette-" palette)))
   [
     print (word "viridis color index invalid. Index maximum = " (length(run-result (word "palette-" palette)) - 1))
     report item 0 run-result (word "palette-" palette)
   ]
   [
-    report item vir_i run-result (word "palette-" palette)
+    report item palette_index run-result (word "palette-" palette)
   ]
 end
 ```
@@ -106,5 +106,4 @@ You can download a NetLogo example model here:
 
 The colormap.nls file includes the described functions above and can be included to any NetLogo model.
 The colormap.nlogo model shows some examples of these functions in action.
-
 <img src="/images/colormap.png" align="center" width="550" /> 

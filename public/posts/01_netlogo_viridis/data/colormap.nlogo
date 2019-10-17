@@ -1,4 +1,3 @@
-
 ;; The defined color palette definitions and palette primitives can be easily included to any NetLogo model using the includes primitive.
 ;; Just copy the "colormap.nls" file to your model folder and adjust the filepath below, if needed.
 __includes["colormap.nls"]
@@ -143,7 +142,7 @@ i
 i
 0
 299
-135.0
+194.0
 1
 1
 NIL
@@ -180,7 +179,7 @@ TEXTBOX
 15
 15
 165
-31
+33
 Choose a palette:
 16
 0.0
