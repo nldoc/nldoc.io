@@ -8,17 +8,12 @@
   </url>
   
   <url>
-    <loc>/tags/agent-based-model/</loc>
-    <lastmod>2019-10-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/</loc>
     <lastmod>2019-10-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/color-scale/</loc>
+    <loc>/tags/colormap/</loc>
     <lastmod>2019-10-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -33,12 +28,27 @@
   </url>
   
   <url>
+    <loc>/categories/netlogo/</loc>
+    <lastmod>2019-10-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/palette/</loc>
+    <lastmod>2019-10-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/posts/</loc>
     <lastmod>2019-10-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/r/</loc>
+    <lastmod>2019-10-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
     <lastmod>2019-10-17T00:00:00+00:00</lastmod>
   </url>
   

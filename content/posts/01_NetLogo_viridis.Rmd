@@ -2,8 +2,8 @@
 title: "Advanced colormaps in NetLogo"
 author: "Jan Salecker"
 date: 2019-10-17
-categories: ["R"]
-tags: ["NetLogo", "agent-based model", "viridis", "color-scale"]
+categories: ["NetLogo", "R"]
+tags: ["NetLogo", "R", "viridis", "colormap", "palette"]
 output:
   blogdown::html_page:
     highlight: tango
@@ -13,18 +13,24 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Welcome
+
+Welcome everybody to my fresh webpage. Every now and then I'll post short little programming applications that I think might be helpful for people out there. Most if this will be related to NetLogo and R and the combination of both tools.
+
+In this first post, I will show you how you can use R colorramps, such as the wonderful viridis colorramp, directly in your NetLogo models.
+
 
 ## Colormaps
 
-The R package [Viridis](https://cran.r-project.org/web/packages/viridis/index.html) provides color palettes that are optimized to represent data. The color scales are easier to read by those with colorblindness and can be easily distinguished when printed in grey scale.
+The R package [Viridis](https://cran.r-project.org/web/packages/viridis/index.html) provides color palettes that are optimized to represent data. The colorramps are easier to read by those with colorblindness and can be easily distinguished when printed in grey scale.
 
-I use viridis color scales for many data visualization purposes every day. However, I also work quite a lot with NetLogo models and was always missing the possibilty to use nice color palettes for coloring the cells or turtles according to certain properties of these agents.
+I use viridis colorramps for many data visualization purposes every day. However, I also work quite a lot with NetLogo models and was always missing the possibilty to use nice color palettes for coloring the cells or turtles according to certain properties of these agents.
 
 So I decided to implement a neat little function in NetLogo that can be copied to any of your NetLogo models. It will allow you to use the viridis color palettes and many other palettes directly within NetLogo.
 
-## Getting the color values from the viridis palettes
+## Extract color values from the viridis palettes
 
-In order to implement the viridis color scales into NetLogo, we first need to extract the RGB color values from the viridis palette. In the following code snippet, we use the [colormap](https://cran.r-project.org/web/packages/colormap/index.html) package to create a palette with RGB values.
+In order to implement the viridis colorramp into NetLogo, we first need to extract the RGB color values from the viridis palette. In the following code snippet, we use the [colormap](https://cran.r-project.org/web/packages/colormap/index.html) package to create a palette with RGB values.
 Afterwards, we write the palette values to a *.txt file in a "NetLogo-friendly" format.
 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE, results = 'hide'}
@@ -50,11 +56,11 @@ cat("]")
 sink()
 ``` 
 
-The colormap package supports many different color-scales, including additional viridis scales, such as the Magma or Plasma scale. A complete list can be found [here](https://www.npmjs.com/package/colormap#options). In order to create output files for these color scales, you only need to adjust the `colormaps$viridis` parameter within the `colormap` function call. For example, `colormap(colormap = colormaps$magma, format = 'rgb', nshades = n)` will report `n` values of the Magma palette.
+The colormap package supports many different colorramps, including additional viridis palettes, such as the magma or plasma palette. A complete list can be found [here](https://www.npmjs.com/package/colormap#options). In order to create output files for these colorramps, you only need to adjust the `colormaps$viridis` parameter within the `colormap` function call. For example, `colormap(colormap = colormaps$magma, format = 'rgb', nshades = n)` will report `n` values of the magma palette.
 
-## Implementing the color-scale in NetLogo
+## Implementing the colorramp in NetLogo
 
-First, we need a function that reports the complete color-scale of our palette. We can use a NetLogo reporter function to achieve this. I created a new reporter function and copy-pasted the values from the written *.txt file into this function.
+First, we need a function that reports the complete colorramp of our palette. We can use a NetLogo reporter function to achieve this. I created a new reporter function and copy-pasted the values from the written *.txt file into this function.
 Thus, when this function is called it will report the complete list of colors from our exported palette.
 
 ```{}
@@ -77,7 +83,7 @@ end
 ```
 
 Third, we may also want to define a function that allows us to pick a specific color from a palette.
-This function also checks if the requested value is available within the selected palette.
+This function also checks if the requested index value is available within the selected palette.
 
 ```{}
 to-report colormap [palette palette_index]
@@ -105,5 +111,9 @@ You can download a NetLogo example model here:
 [colormap.nls](data/colormap.nls)
 
 The colormap.nls file includes the described functions above and can be included to any NetLogo model.
-The colormap.nlogo model shows some examples of these functions in action.
+The colormap.nlogo model shows some examples of these functions in action. Please download both and put the in the same folder and open the colormap.nlogo file to run the examples.
+Of course you can edit the colormap.nls file and add more palette reporters of any palettes you wish to use.
+
+Stay tuned for more NetLogo and R related content ;)
+
 <img src="/images/colormap.png" align="center" width="550" /> 

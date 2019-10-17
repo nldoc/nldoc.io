@@ -12,20 +12,11 @@
     
     
     <item>
-      <title>agent-based model</title>
-      <link>/tags/agent-based-model/</link>
+      <title>colormap</title>
+      <link>/tags/colormap/</link>
       <pubDate>Thu, 17 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/agent-based-model/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>color-scale</title>
-      <link>/tags/color-scale/</link>
-      <pubDate>Thu, 17 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/color-scale/</guid>
+      <guid>/tags/colormap/</guid>
       <description></description>
     </item>
     
@@ -35,6 +26,24 @@
       <pubDate>Thu, 17 Oct 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/netlogo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>palette</title>
+      <link>/tags/palette/</link>
+      <pubDate>Thu, 17 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/palette/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Thu, 17 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/r/</guid>
       <description></description>
     </item>
     
