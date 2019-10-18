@@ -70,8 +70,8 @@ end
 ```
 
 Second, we need a function that scales our color palette to the variable values of agents.
-This function works similar to the `scale-color` primitive of NetLogo. It will take 4 arguments. First, a string to select the palette that you want to use for coloring. This allows you to define multiple color palettes with different reporter functions (see examples in NetLogo example model at the buttom of this post).
-Second, it vill take the variable value of the current agent. The remaining two values define the variable range. The function will then scale the variable range onto the range of the selected color palette and selects the item that corresponds to the variable value of the actual agent. By default, your `minvar` value will be smaller then the `maxvar` value. High values will then receive colors from the end of the list, whereas low values will receive colors from the beginning of the list. Similar to the `scale-color` primitive, you can revert the direction of the colorramp by switching the `minvar` and `maxvar` values (minvar > maxvar). 
+This function works similar to the `scale-color` primitive of NetLogo. It will take 4 arguments. A string to select the palette that you want to use for coloring. This allows you to define multiple color palettes with different reporter functions (see examples in NetLogo example model at the buttom of this post).
+The function will further take the variable value of the current agent. The remaining two values define the variable range. The function will then scale the variable range onto the range of the selected color palette and selects the item that corresponds to the variable value of the actual agent. By default, your `minvar` value will be smaller then the `maxvar` value. High values will then receive colors from the end of the list, whereas low values will receive colors from the beginning of the list. Similar to the `scale-color` primitive, you can revert the direction of the colorramp by switching the `minvar` and `maxvar` values (minvar > maxvar). 
 
 ```{}
 to-report scale-colormap [palette var minvar maxvar]
@@ -96,6 +96,40 @@ end
 ```
 
 These functions can now be stored as a separate *.nls file. This file can then be included in any NetLogo model via the `__includes[]` primitive. 
+
+## How to use the palettes
+
+Using the `scale-colormap` functions works very similar to the `scale-color` primitive.
+Assuming our turtles have a `turtles-own` variable `t_x`, we can use this variable to color the turtles according to these values using our functions. We first store the extremes of our variable distribution as local variables. We than ask all turtles to set their color, using the `scale-colormap` function and providing the chosen palette name, the name of the turtle variable and the corresponding extreme values.
+```{}
+;; Store extremevalues:
+let xmin min [t_x] of turtles
+let xmax max [t_x] of turtles
+
+;; Set colors
+ask turtles [set color scale-colormap "viridis" t_x xmin xmax]
+```
+
+Of course, we can do the same for patches:
+```{}
+;; Store extremevalues:
+let xmin min [p_x] of patches
+let xmax max [p_x] of patches
+
+;; Set pcolors
+ask patches [set pcolor scale-colormap "viridis" p_x xmin xmax]
+```
+
+As explained above, if you want to revert the colorramp, you can just switch the xmin and xmax values:
+```{}
+ask patches [set pcolor scale-colormap "viridis" p_x xmax xmin]
+```
+
+
+We can also use the `colormap` function to use one specific color from a palette. For example, if we want to color one random patch with the 42nd color of the viridis palette:
+```{}
+ask one-of patches [set pcolor colormap "viridis" 42]
+```
 
 ## Complete NetLogo example including four palettes
 
