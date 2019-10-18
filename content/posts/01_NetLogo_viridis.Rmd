@@ -133,7 +133,9 @@ ask one-of patches [set pcolor colormap "viridis" 42]
 
 ## Complete NetLogo example including four palettes
 
-You can download a NetLogo example model here:
+If you want to play around with the functions, you can check out the online [netlogoweb version](data/colormap_netlogoweb.html).
+
+You can also download a NetLogo example model here:
 [colormap.nlogo](data/colormap.nlogo);
 [colormap.nls](data/colormap.nls)
 
