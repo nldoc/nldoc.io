@@ -1,4 +1,3 @@
-
 ;; The defined color palette definitions and palette primitives can be easily included to any NetLogo model using the includes primitive.
 ;; Just copy the "colormap.nls" file to your model folder and adjust the filepath below, if needed.
 __includes["colormap.nls"]
@@ -12,48 +11,48 @@ patches-own [p_x]
 
 ;; Distribute scale colors to turtles depending on variable t_x
 to scale-colormap-turtles
-  ca
-  crt 20
-  [
-    move-to one-of patches
-    set t_x random 100
-  ]
-
   ;; Store extremevalues:
   let xmin min [t_x] of turtles
   let xmax max [t_x] of turtles
-
   ;; Set colors
   ask turtles [set color scale-colormap which.palette t_x xmin xmax]
 end
 
 ;; Distribute scale colors to patches depending on variable p_x
 to scale-colormap-patches
-  ca
-  ask patches [set p_x random 100]
-
   ;; Store extremevalues:
   let xmin min [p_x] of patches
   let xmax max [p_x] of patches
-
   ;; Set colors
   ask patches [set pcolor scale-colormap which.palette p_x xmin xmax]
 end
 
 ;; Color turtles with a specific color, defined by a slider
 to colormap-turtles
-  ca
-  crt 10
-  [
-    move-to one-of patches
-    set color colormap which.palette i
-  ]
+  ;; Give turtles specific color:
+  ask turtles [set color colormap which.palette i]
 end
 
 ;; Color patches with a specific color, defined by a slider
 to colormap-patches
-  ca
+  ;; Give patches specific color:
   ask patches [set pcolor colormap which.palette i]
+end
+
+;=================================================================================================
+; SETUP SECTION
+to setup
+  ; Clear-all
+  ca
+  ; Create 20 turtles on random positions and initialize t_x variable with random values
+  crt 20
+  [
+    move-to one-of patches
+    set color red
+    set t_x random 100
+  ]
+  ; Initialize patch variable p_x with random values
+  ask patches [set p_x random 100]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -85,9 +84,9 @@ ticks
 
 BUTTON
 10
-145
+200
 150
-178
+233
 NIL
 scale-colormap-turtles
 NIL
@@ -102,9 +101,9 @@ NIL
 
 BUTTON
 10
-180
+235
 150
-213
+268
 NIL
 scale-colormap-patches
 NIL
@@ -119,9 +118,9 @@ NIL
 
 BUTTON
 10
-305
+360
 150
-338
+393
 NIL
 colormap-turtles
 NIL
@@ -136,14 +135,14 @@ NIL
 
 SLIDER
 10
-270
+325
 150
-303
+358
 i
 i
 0
 299
-135.0
+215.0
 1
 1
 NIL
@@ -151,9 +150,9 @@ HORIZONTAL
 
 BUTTON
 10
-340
+395
 150
-373
+428
 NIL
 colormap-patches
 NIL
@@ -168,19 +167,19 @@ NIL
 
 CHOOSER
 10
-40
+100
 148
-85
+145
 which.palette
 which.palette
 "viridis" "plasma" "magma" "inferno"
-0
+3
 
 TEXTBOX
 15
-15
+75
 165
-31
+93
 Choose a palette:
 16
 0.0
@@ -188,9 +187,9 @@ Choose a palette:
 
 TEXTBOX
 15
-100
+155
 165
-140
+195
 Examples for scale-colormap:
 16
 0.0
@@ -198,10 +197,37 @@ Examples for scale-colormap:
 
 TEXTBOX
 15
-225
+280
 165
-265
+320
 Examples for colormap:
+16
+0.0
+1
+
+BUTTON
+10
+35
+150
+68
+setup / reset
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+TEXTBOX
+15
+10
+140
+30
+Setup and reset:
 16
 0.0
 1
