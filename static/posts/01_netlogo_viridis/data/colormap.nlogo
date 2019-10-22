@@ -2,6 +2,9 @@
 ;; Just copy the "colormap.nls" file to your model folder and adjust the filepath below, if needed.
 __includes["colormap.nls"]
 
+;; Load palette extension
+extensions[palette]
+
 ;; Create some generic turtle and patch variables for demonstration purposes:
 turtles-own [t_x]
 patches-own [p_x]
@@ -15,7 +18,7 @@ to scale-colormap-turtles
   let xmin min [t_x] of turtles
   let xmax max [t_x] of turtles
   ;; Set colors
-  ask turtles [set color scale-colormap which.palette t_x xmin xmax]
+  ask turtles [set color palette:scale-gradient (runresult which.palette) t_x xmin xmax]
 end
 
 ;; Distribute scale colors to patches depending on variable p_x
@@ -24,19 +27,19 @@ to scale-colormap-patches
   let xmin min [p_x] of patches
   let xmax max [p_x] of patches
   ;; Set colors
-  ask patches [set pcolor scale-colormap which.palette p_x xmin xmax]
+  ask patches [set pcolor palette:scale-gradient (runresult which.palette) p_x xmin xmax]
 end
 
 ;; Color turtles with a specific color, defined by a slider
 to colormap-turtles
   ;; Give turtles specific color:
-  ask turtles [set color colormap which.palette i]
+  ask turtles [set color item i (runresult which.palette)]
 end
 
 ;; Color patches with a specific color, defined by a slider
 to colormap-patches
   ;; Give patches specific color:
-  ask patches [set pcolor colormap which.palette i]
+  ask patches [set pcolor item i (runresult which.palette)]
 end
 
 ;=================================================================================================
@@ -172,8 +175,8 @@ CHOOSER
 145
 which.palette
 which.palette
-"viridis" "plasma" "magma" "inferno"
-3
+"pal.viridis" "pal.plasma" "pal.magma" "pal.inferno"
+0
 
 TEXTBOX
 15
